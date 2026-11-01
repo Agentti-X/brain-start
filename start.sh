@@ -131,12 +131,12 @@ if [ "$CODE" = 1 ]; then
     printf '  found    an existing checkout at %s\n' "$code_old"
     if [ "$DRY" = 1 ]; then
       printf '  would    ask, then move it to %s\n' "$code_new"
-    elif confirm "Move it to $code_new? Stop its dev servers, Docker containers and editor first."; then
+    elif confirm "Move it to $code_new? First stop the local dev environment on this Mac (make / npm run dev, docker compose containers) and the editor. The shared dev server keeps running."; then
       busy=$(lsof -nP -d cwd -Fpcn 2>/dev/null | awk -v d="$code_old" '/^p/{p=substr($0,2)} /^c/{c=substr($0,2)} /^n/{n=substr($0,2); if (index(n, d)==1 && c !~ /^-?(zsh|bash|login)$/) print "    " c " (pid " p ")"}' | sort -u)
       cont=$(docker ps --format '{{.Names}} {{.Label "com.docker.compose.project.working_dir"}}' 2>/dev/null | awk -v d="$code_old" 'index($2, d)==1 {print "    container " $1}')
       if [ -n "$busy$cont" ]; then
         printf '%s\n%s\n' "$busy" "$cont"
-        die "these still run in $code_old. Stop them, then run this again."
+        die "these still run in $code_old on this Mac. Stop them (only the local ones), then run this again."
       fi
       mkdir -p "$(dirname "$code_new")" && mv "$code_old" "$code_new" && did "moved the code to $code_new"
       key() { printf '%s' "$1" | sed 's/[^A-Za-z0-9]/-/g'; }
