@@ -7,7 +7,8 @@ an old one:
 bash <(curl -fsSL https://raw.githubusercontent.com/Agentti-X/brain-start/main/start.sh)
 ```
 
-Add `--code` to set up the code as well, or `--dry-run` to see what it would do.
+It asks whether you code, and sets up the code too if you do. `--code` or
+`--memory` answers that in advance, and `--dry-run` shows what it would do.
 
 This repository is public on purpose and holds nothing secret. The script
 installs Homebrew, git, the GitHub CLI and Claude Code if they are missing,

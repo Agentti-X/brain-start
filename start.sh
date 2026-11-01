@@ -8,7 +8,8 @@
 # Agentti-X/2nd-brain-system with your own login, so it only gets further for
 # members of the Agentti-X organisation. Safe to run again at any time.
 #
-#   --code      also set up the code (agenttix-root and its apps)
+# It asks whether you code; these answer in advance:
+#   --code      also set up the code (agenttix-root and its apps), without asking
 #   --memory    memory only, without asking
 #   --dry-run   say what would happen, change nothing
 
@@ -19,7 +20,7 @@ CODE=""; DRY=0
 for a in "$@"; do
   case "$a" in
     --code) CODE=1 ;; --memory) CODE=0 ;; --dry-run) DRY=1 ;;
-    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "unknown option: $a (try --help)" >&2; exit 2 ;;
   esac
 done
